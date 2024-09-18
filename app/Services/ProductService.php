@@ -84,7 +84,7 @@ class ProductService extends AbstractServices
 
                             if (isset($attr['value']) && !empty($attr['value'])) {
                                 $attributeValue = AttributeValue::firstOrCreate([
-                                    'attribute_id' => $attribute->id,
+'attribute_id' => $attribute->id,
                                     'value' => $attr['value'],
                                 ]);
 
@@ -134,7 +134,11 @@ class ProductService extends AbstractServices
     {
         // Tìm sản phẩm dựa vào productId
         $product = Product::find($productId);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> ed5d034853fce17421ea2e2b53c579bb2078c40b
         // Kiểm tra xem sản phẩm có tồn tại không
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
@@ -157,10 +161,17 @@ class ProductService extends AbstractServices
             $product->name = $productData['name'];
             $product->brand = $productData['brand'];
             $product->description = $productData['description'];
+<<<<<<< HEAD
             $product->image = $productData['image'] ?? $product->image;
             $product->category_id = $productData['category_id'];
             $product->sale_id = $productData['sale_id'] ?? null;
             
+=======
+$product->image = $productData['image'] ?? $product->image;
+            $product->category_id = $productData['category_id'];
+            $product->sale_id = $productData['sale_id'] ?? null;
+
+>>>>>>> ed5d034853fce17421ea2e2b53c579bb2078c40b
             $product->save();
 
             if (isset($productData['variants']) && is_array($productData['variants'])) {
@@ -192,10 +203,17 @@ class ProductService extends AbstractServices
                     }
                     else{
                         $variant = Variant::find(id: $variantId);
+<<<<<<< HEAD
                     
                         // Xóa liên kết cũ
                         $variant->attributeValues()->detach($oldAttributeValueId);
                         
+=======
+
+                        // Xóa liên kết cũ
+                        $variant->attributeValues()->detach($oldAttributeValueId);
+
+>>>>>>> ed5d034853fce17421ea2e2b53c579bb2078c40b
                         // Thêm liên kết mới
                         $variant->attributeValues()->attach($newAttributeValueId);
                     }
@@ -219,7 +237,7 @@ class ProductService extends AbstractServices
     public function updateSaleInProduct($productId, $productData)
     {
         try {
-            if (!isset($productData['sale_id'])) {
+if (!isset($productData['sale_id'])) {
                 return response()->json(['error' => 'Sale ID is required'], 400);
             }
             $product = Product::findOrFail($productId);
@@ -312,7 +330,7 @@ class ProductService extends AbstractServices
             $query = Product::query();
 
             // LỞc theo màu sắc
-            if ($request->filled('color')) {
+if ($request->filled('color')) {
                 $color = (string)$request->input('color');
                 $query->whereHas('variants.attributeValues', function ($query) use ($color) {
                     $query->whereHas('attribute', function ($query) use ($color) {
